@@ -1,17 +1,17 @@
 <template>
   <ul role="list" class="divide-y divide-gray-100">
-    <li v-for="valute in valutes" :key="valute.name" class="flex gap-x-4 py-5">
+    <li v-for="valute in valutes" :key="valute.name" class="flex gap-x-4 py-5 content-center">
       <img
         class="h-12 w-12 flex-none rounded-full bg-gray-50"
         :src="valute.imageUrl"
         alt="Country"
       />
-      <div class="min-w-0 grid grid-cols-2 gap-x-4">
+      <div class="min-w-0 grid grid-cols-2 gap-x-4 content-center">
         <div class="col-start-auto">
           <p class="text-sm font-semibold leading-6 text-gray-900">{{ valute.name }}</p>
           <p class="mt-1 truncate text-xs leading-5 text-gray-500">{{ valute.value }}</p>
         </div>
-        <div class="col-end-auto">
+        <div class="col-start-3 mx-96">
           <p class="text-sm font-semibold leading-6 text-gray-900">{{ valute.name }}</p>
         </div>
       </div>

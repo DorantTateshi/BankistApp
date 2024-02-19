@@ -182,7 +182,6 @@ const user = {
 }
 const navigation = ref([
   { name: 'Home', to: '/', current: route.fullPath === '/' },
-  { name: 'About', to: '/about', current: route.fullPath === '/about' },
   { name: 'Transactions', to: '/transactions', current: route.fullPath === '/transactions' },
   { name: 'Cards', to: '/cards', current: route.fullPath === '/cards' },
   { name: 'Exchange Office', to: '/exchange', current: route.fullPath === '/exchange' }
