@@ -1,18 +1,19 @@
 <template>
   <ul role="list" class="divide-y divide-gray-100">
+    <li></li>
     <li v-for="valute in valutes" :key="valute.name" class="flex gap-x-4 py-5 content-center">
       <img
         class="h-12 w-12 flex-none rounded-full bg-gray-50"
         :src="valute.imageUrl"
         alt="Country"
       />
-      <div class="min-w-0 grid grid-cols-2 gap-x-4 content-center">
+      <div class="min-w-0 grid grid-cols-2 gap-x-96 content-center">
         <div class="col-start-auto">
           <p class="text-sm font-semibold leading-6 text-gray-900">{{ valute.name }}</p>
           <p class="mt-1 truncate text-xs leading-5 text-gray-500">{{ valute.value }}</p>
         </div>
-        <div class="col-start-3 mx-96">
-          <p class="text-sm font-semibold leading-6 text-gray-900">{{ valute.name }}</p>
+        <div class="col-start-3">
+          <p class="text-sm leading-6 text-gray-700">{{ (props.mkd / valute.value).toFixed(2) }}</p>
         </div>
       </div>
     </li>
@@ -24,7 +25,7 @@ const valutes = [
   {
     name: 'EUR',
     imageUrl:
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Flag_of_Europe.svg/255px-Flag_of_Europe.svg.png',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Flag_of_Europe.svg/2560px-Flag_of_Europe.svg.png',
     value: 61.52
   },
   {
@@ -45,10 +46,10 @@ const valutes = [
     value: 78.32
   },
   {
-    name: 'SEK',
+    name: 'CAD',
     imageUrl:
-      'https://upload.wikimedia.org/wikipedia/en/thumb/4/4c/Flag_of_Sweden.svg/1200px-Flag_of_Sweden.svg.png',
-    value: 5.48
+      'https://media.istockphoto.com/id/934017954/vector/canada-flag.jpg?s=612x612&w=0&k=20&c=QYOJlgWtujlAPzncX5H4UFPDpySMhoh2iPc_zi2t_zQ=',
+    value: 41.51
   },
   {
     name: 'AUD',
@@ -56,4 +57,6 @@ const valutes = [
     value: 37.36
   }
 ]
+
+const props = defineProps(['mkd'])
 </script>

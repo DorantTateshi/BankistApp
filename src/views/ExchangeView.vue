@@ -1,9 +1,15 @@
 <script setup>
 import ExchangedDisplay from '@/components/ExchangedDisplay.vue'
+import { ref, watch } from 'vue'
+
+const mkd = ref(0)
+watch(mkd, () => {
+  console.log(mkd.value)
+})
 </script>
 
 <template>
-  <div class="inline-flex my-4 mx-28">
+  <div class="inline-flex my-4 mx-52">
     <img
       class="h-12 w-12 flex-none rounded-full bg-gray-50 m-2"
       src="https://cdn.britannica.com/08/6208-050-930F76BA/Flag-North-Macedonia.jpg"
@@ -19,8 +25,9 @@ import ExchangedDisplay from '@/components/ExchangedDisplay.vue'
         id="number"
         class="block w-96 mx-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
         placeholder="1000 MKD"
+        @input="mkd = $event.target.value"
       />
     </div>
   </div>
-  <ExchangedDisplay />
+  <ExchangedDisplay :mkd="mkd" />
 </template>

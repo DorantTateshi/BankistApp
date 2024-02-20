@@ -9,9 +9,9 @@
         </div>
         <div>
           <h5 v-if="transaction.price > 0" class="text-lg text-green-600">
-            {{ transaction.price }} $
+            {{ transaction.price }} MKD
           </h5>
-          <h5 v-else class="text-lg text-red-600">{{ transaction.price }} $</h5>
+          <h5 v-else class="text-lg text-red-600">{{ transaction.price }} MKD</h5>
         </div>
         <div>
           <time :datetime="transaction.time" class="flex-none text-xs text-gray-500">{{
@@ -19,7 +19,12 @@
           }}</time>
         </div>
         <div>
-          <button class="text-red-800 rounded-full bg-red-200 py-2 px-4">Delete</button>
+          <button
+            class="text-red-800 rounded-full bg-red-200 py-2 px-4"
+            @click="deleteTransaction(transaction.name)"
+          >
+            Delete
+          </button>
         </div>
       </div>
     </li>
@@ -27,5 +32,14 @@
 </template>
 
 <script setup>
-const props = defineProps(['transactions'])
+const props = defineProps(['transactions', 'updateState'])
+// const emits = defineEmits(['delete'])
+
+function deleteTransaction(transactionName) {
+  console.log('clicked')
+  let updated = props.transactions.filter((transaction) => {
+    return transaction.name !== transactionName
+  })
+  props.updateState(updated)
+}
 </script>

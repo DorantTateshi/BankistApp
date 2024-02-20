@@ -172,7 +172,6 @@ import { RouterView, useRoute } from 'vue-router'
 import { ref, watch } from 'vue'
 
 const route = useRoute()
-console.log(route.fullPath === '/')
 
 const user = {
   name: 'Tom Cook',
