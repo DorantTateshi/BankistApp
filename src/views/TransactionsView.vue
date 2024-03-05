@@ -32,6 +32,9 @@ let postError = ref(false)
 let positiveSum = ref(0)
 let negativeSum = ref(0)
 
+function successToggler(changeVal) {
+  postSuccess.value = changeVal
+}
 // eslint-disable-next-line no-unused-vars
 const emits = defineEmits(['delete'])
 
@@ -175,8 +178,16 @@ watchEffect(() => {
       Save
     </button>
   </div>
-  <SuccesfullNotification v-if="postSuccess" />
-  <ErrorNotification v-if="postError" />
+  <SuccesfullNotification
+    v-if="postSuccess"
+    message1="Transaction has been saved successfully !"
+    :funct="successToggler"
+  />
+  <ErrorNotification
+    v-if="postError"
+    message1="Error while posting the transaction !"
+    message2="Please don't leave empty fields!"
+  />
   <h1 class="text-2xl my-2">List of transactions</h1>
   <p class="text-sm text-gray-500">
     Here are all the transactions, the new added ones will be showed too.

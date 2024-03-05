@@ -1,3 +1,68 @@
+<!-- eslint-disable no-unused-vars -->
+<script setup>
+import {
+  Disclosure,
+  DisclosureButton,
+  DisclosurePanel,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuItems
+} from '@headlessui/vue'
+import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline'
+import { RouterView, useRoute } from 'vue-router'
+import { ref, watch, inject, computed } from 'vue'
+import { useStore } from 'vuex'
+import { store } from './main'
+import router from './router'
+const route = useRoute()
+let isLoggedIn = inject('isLoggedIn')
+
+const x = computed(() => store.state.isLoggedIn)
+
+const user = {
+  name: 'Tom Cook',
+  email: 'tom@example.com',
+  imageUrl:
+    'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
+}
+const navigation = ref([
+  { name: 'Home', to: '/', current: route.fullPath === '/' },
+  { name: 'Transactions', to: '/transactions', current: route.fullPath === '/transactions' },
+  { name: 'Cards', to: '/cards', current: route.fullPath === '/cards' },
+  { name: 'Exchange Office', to: '/exchange', current: route.fullPath === '/exchange' }
+])
+
+const navigation1 = ref([
+  { name: 'Home', to: '/', current: route.fullPath === '/' },
+  { name: 'Exchange Office', to: '/exchange', current: route.fullPath === '/exchange' }
+])
+
+watch(
+  () => route.fullPath,
+  (newPath) => {
+    // console.log(x)
+    navigation.value.forEach((item) => {
+      item.current = item.to === newPath
+    })
+  }
+)
+watch(
+  () => route.fullPath,
+  (newPath) => {
+    // console.log(x)
+    navigation1.value.forEach((item) => {
+      item.current = item.to === newPath
+    })
+  }
+)
+
+const handleSignOut = () => {
+  store.commit('setLoggedIn', false)
+  router.push('/')
+}
+</script>
+
 <template>
   <nav>
     <div class="min-h-full">
@@ -17,8 +82,28 @@
                   alt="Your Company"
                 />
               </div>
-              <div class="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
+              <div
+                v-if="store.state.isLoggedIn"
+                class="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8"
+              >
                 <template v-for="item in navigation" :key="item.name">
+                  <RouterLink
+                    :to="{ path: item.to }"
+                    :href="item.to"
+                    :class="[
+                      item.current
+                        ? 'border-green-600 text-gray-900'
+                        : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700',
+                      'inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium'
+                    ]"
+                    :aria-current="item.current ? 'page' : undefined"
+                  >
+                    {{ item.name }}
+                  </RouterLink>
+                </template>
+              </div>
+              <div v-else class="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
+                <template v-for="item in navigation1" :key="item.name">
                   <RouterLink
                     :to="{ path: item.to }"
                     :href="item.to"
@@ -36,58 +121,42 @@
               </div>
             </div>
             <div class="hidden sm:ml-6 sm:flex sm:items-center">
+              <button
+                type="button"
+                class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700"
+                v-if="store.state.isLoggedIn"
+                @click="handleSignOut"
+              >
+                Sign out
+              </button>
               <RouterLink
+                v-else
                 class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700"
                 to="/login"
                 >Log In</RouterLink
               >
-              <button
-                type="button"
-                class="relative rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-              >
-                <span class="absolute -inset-1.5" />
-                <span class="sr-only">View notifications</span>
-                <BellIcon class="h-6 w-6" aria-hidden="true" />
-              </button>
 
               <!-- Profile dropdown -->
-              <Menu as="div" class="relative ml-3">
+              <Menu as="div" class="relative ml-3" v-if="store.state.isLoggedIn">
                 <div>
                   <MenuButton
                     class="relative flex max-w-xs items-center rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                   >
                     <span class="absolute -inset-1.5" />
                     <span class="sr-only">Open user menu</span>
-                    <img class="h-8 w-8 rounded-full" :src="user.imageUrl" alt="" />
+                    <span
+                      className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-gray-500"
+                    >
+                      <span className="text-xl font-medium leading-none text-white"
+                        >{{ store.state.user.name[0].toUpperCase()
+                        }}{{ store.state.user.lastname[0].toUpperCase() }}</span
+                      >
+                    </span>
                   </MenuButton>
                 </div>
-                <transition
-                  enter-active-class="transition ease-out duration-200"
-                  enter-from-class="transform opacity-0 scale-95"
-                  enter-to-class="transform opacity-100 scale-100"
-                  leave-active-class="transition ease-in duration-75"
-                  leave-from-class="transform opacity-100 scale-100"
-                  leave-to-class="transform opacity-0 scale-95"
-                >
-                  <MenuItems
-                    class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
-                  >
-                    <MenuItem v-for="item in userNavigation" :key="item.name" v-slot="{ active }">
-                      <a
-                        :href="item.href"
-                        :class="[
-                          active ? 'bg-gray-100' : '',
-                          'block px-4 py-2 text-sm text-gray-700'
-                        ]"
-                        >{{ item.name }}</a
-                      >
-                    </MenuItem>
-                  </MenuItems>
-                </transition>
               </Menu>
             </div>
             <div class="-mr-2 flex items-center sm:hidden">
-              <!-- Mobile menu button -->
               <DisclosureButton
                 class="relative inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               >
@@ -151,53 +220,6 @@
     </div>
   </nav>
   <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-    <!-- Router view for rendering components -->
     <RouterView />
   </main>
 </template>
-
-<script setup>
-import {
-  Disclosure,
-  DisclosureButton,
-  DisclosurePanel,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuItems
-} from '@headlessui/vue'
-
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline'
-import { RouterView, useRoute } from 'vue-router'
-import { ref, watch } from 'vue'
-
-const route = useRoute()
-
-const user = {
-  name: 'Tom Cook',
-  email: 'tom@example.com',
-  imageUrl:
-    'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
-}
-const navigation = ref([
-  { name: 'Home', to: '/', current: route.fullPath === '/' },
-  { name: 'Transactions', to: '/transactions', current: route.fullPath === '/transactions' },
-  { name: 'Cards', to: '/cards', current: route.fullPath === '/cards' },
-  { name: 'Exchange Office', to: '/exchange', current: route.fullPath === '/exchange' }
-])
-
-watch(
-  () => route.fullPath,
-  (newPath) => {
-    navigation.value.forEach((item) => {
-      item.current = item.to === newPath
-    })
-  }
-)
-
-const userNavigation = [
-  { name: 'Your Profile', href: '#' },
-  { name: 'Settings', href: '#' },
-  { name: 'Sign out', href: '#' }
-]
-</script>
