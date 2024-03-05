@@ -14,10 +14,10 @@ let users = inject('users')
 // let route = useRoute()
 
 function checkLogin() {
-  let is = false
+  // let is = false
   users.map((user) => {
     if (user.email === email.value && user.password === password.value) {
-      is = true
+      // is = true
       store.commit('setLoggedIn', true)
       store.commit('setUser', {
         name: user.name,
@@ -27,9 +27,12 @@ function checkLogin() {
         password: user.password
       })
       router.push('/')
+      return true
     }
   })
-  console.log(is)
+  // console.log(is)
+  loginError.value = true
+
   return false
 }
 
@@ -61,7 +64,11 @@ watchEffect(() => {
           >
           <div class="mt-2">
             <input
-              @change="loginError = false"
+              @change="
+                () => {
+                  loginError = false
+                }
+              "
               id="email"
               name="email"
               class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -83,7 +90,11 @@ watchEffect(() => {
           </div>
           <div class="mt-2">
             <input
-              @change="loginError = false"
+              @change="
+                () => {
+                  loginError = false
+                }
+              "
               id="password"
               name="password"
               type="password"
@@ -104,7 +115,10 @@ watchEffect(() => {
           </button>
         </div>
       </form>
-
+      <!-- <ErrorNotification
+        message1="Error while trying to log in !"
+        message2="Check the credentials and try again!"
+      /> -->
       <p class="mt-10 text-center text-sm text-gray-500">
         Not a member?
         {{ ' ' }}
