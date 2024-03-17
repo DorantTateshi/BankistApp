@@ -36,6 +36,7 @@ function successToggler(changeVal) {
   postSuccess.value = changeVal
 }
 // eslint-disable-next-line no-unused-vars
+// eslint-disable-next-line no-unused-vars
 const emits = defineEmits(['delete'])
 
 function checkTransaction(transactionName, trnasctionPrice, transactionDate) {
@@ -44,7 +45,7 @@ function checkTransaction(transactionName, trnasctionPrice, transactionDate) {
     transactionDate.value === null ||
     trnasctionPrice.value === null
   ) {
-    console.log('errror while trying to add a transaction')
+    console.log('error while trying to add a transaction')
     postError.value = true
   } else {
     const newTransaction = {
