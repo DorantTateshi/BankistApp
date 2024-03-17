@@ -47,10 +47,10 @@ const people = [
               We built our business on great customer service
             </h2>
             <p class="mt-4 text-gray-500">
-              At the beginning at least, but then we realized we could make a lot more money if we
-              kinda stopped caring about that. Our new strategy is to write a bunch of things that
-              look really good in the headlines, then clarify in the small print but hope people
-              don't actually read it.
+              FINKI BANK's strategy focuses on leveraging digital technology to enhance customer
+              experience and operational efficiency. By investing in digital banking solutions and
+              customer-centric services, the bank aims to expand its market reach, drive growth, and
+              build long-term relationships with its customers.
             </p>
           </div>
           <div class="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg bg-gray-100">
