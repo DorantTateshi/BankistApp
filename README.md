@@ -1,4 +1,6 @@
-# bankist-app
+# Expense Tracker 
+Contributors: Dorant Tateshi - 211224 and Arijan Berisha - 211513
+
 
 This template should help get you started developing with Vue 3 in Vite.
 
