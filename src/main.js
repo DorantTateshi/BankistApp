@@ -10,23 +10,6 @@ export const app = createApp(App)
 
 app.use(router)
 
-export const store = createStore({
-  state() {
-    return {
-      isLoggedIn: false,
-      user: {}
-    }
-  },
-  mutations: {
-    setLoggedIn(state, value) {
-      state.isLoggedIn = value
-    },
-    setUser(state, value) {
-      state.user = value
-    }
-  }
-})
-
 let users = [
   {
     name: 'Dorant',
@@ -36,6 +19,26 @@ let users = [
     password: '123'
   }
 ]
+export const store = createStore({
+  state() {
+    return {
+      isLoggedIn: false,
+      user: {},
+      users: users
+    }
+  },
+  mutations: {
+    setLoggedIn(state, value) {
+      state.isLoggedIn = value
+    },
+    setUser(state, value) {
+      state.user = value
+    },
+    setUsers(state, value) {
+      state.users = value
+    }
+  }
+})
 
 let usersRef = ref(users)
 // let isLoggedIn = ref(false)

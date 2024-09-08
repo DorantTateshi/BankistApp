@@ -1,5 +1,6 @@
 <script setup>
 import ErrorNotification from '@/components/ErrorNotification.vue'
+// eslint-disable-next-line no-unused-vars
 import { ref, watchEffect, inject } from 'vue'
 // import { useStore } from 'vuex'
 import { store } from '@/main'
@@ -9,7 +10,7 @@ import router from '@/router'
 let email = ref('')
 let password = ref('')
 let loginError = ref(false)
-let users = inject('users')
+let users = store.state.users
 
 // let route = useRoute()
 
@@ -40,6 +41,7 @@ watchEffect(() => {
   // console.log(email.value)
   // console.log(password.value)
   // console.log(isLoggedIn)
+  console.log(users)
 })
 </script>
 

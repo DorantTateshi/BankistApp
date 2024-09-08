@@ -136,6 +136,7 @@
 import  ErrorNotification from '@/components/ErrorNotification.vue'
 import SuccesfullNotification from '@/components/SuccesfullNotification.vue'
 import { inject, ref } from 'vue'
+import { store } from '@/main'
 
 let name = ref('')
 let lastname = ref('')
@@ -146,7 +147,7 @@ let email = ref('')
 let successSignup = ref(false)
 let errorSignup = ref(false)
 
-const users = inject('users')
+const users = store.state.users
 let loggedIn = inject('isLoggedIn')
 
 console.log(users)
@@ -176,6 +177,10 @@ function checkSignUp() {
       email: email.value,
       password: password.value
     })
+
+    console.log('user signed up')
+    console.log(users)
+    store.commit('setUsers', users)
     successSignup.value = true
   }
 }
