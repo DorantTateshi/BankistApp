@@ -133,7 +133,7 @@
 </template>
 
 <script setup>
-import ErrorNotification from '@/components/ErrorNotification.vue'
+import  ErrorNotification from '@/components/ErrorNotification.vue'
 import SuccesfullNotification from '@/components/SuccesfullNotification.vue'
 import { inject, ref } from 'vue'
 import { store } from '@/main'

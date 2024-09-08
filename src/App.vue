@@ -30,7 +30,8 @@ const navigation = ref([
   { name: 'Home', to: '/', current: route.fullPath === '/' },
   { name: 'Transactions', to: '/transactions', current: route.fullPath === '/transactions' },
   { name: 'Cards', to: '/cards', current: route.fullPath === '/cards' },
-  { name: 'Exchange Office', to: '/exchange', current: route.fullPath === '/exchange' }
+  { name: 'Exchange Office', to: '/exchange', current: route.fullPath === '/exchange' },
+  { name: 'AI tool', to: '/openai', current: route.fullPath === '/openai' }
 ])
 
 const navigation1 = ref([

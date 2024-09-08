@@ -27,6 +27,12 @@ const router = createRouter({
       name: 'exchange',
       component: () => import('../views/ExchangeView.vue')
     },
+    {
+      path: '/openai',
+      name: 'openai',
+      component: () => import('../views/OpenAiView.vue')
+    },
+
     { path: '/login', name: 'login', component: () => import('../views/LoginView.vue') },
     { path: '/signup', name: 'signup', component: () => import('../views/SignupView.vue') }
   ]
